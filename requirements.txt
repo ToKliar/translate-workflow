@@ -1,0 +1,10 @@
+nltk
+openai
+pydantic==1.10.2
+# torch
+# addict
+# dataset
+python-lzo
+readmdict
+spacy
+modelscope

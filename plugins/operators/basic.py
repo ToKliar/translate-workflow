@@ -144,10 +144,11 @@ class BasicOperator(BaseOperator):
             upstream_task_list: list[BaseOperator] = []
             for upstream_task in upstream_tasks:
                 upstream_output_type = self.get_output_type(context, upstream_task.task_id)
-                upstream_output_type = set(upstream_output_type)
+                if upstream_output_type is not None:
+                    upstream_output_type = set(upstream_output_type)
 
                 # check whether operator can handle output type from upstream task
-                if upstream_output_type is None or len(upstream_output_type.intersection(self.input_type)) != 0:
+                if len(self.input_type) != 0 and (upstream_output_type is None or len(upstream_output_type.intersection(self.input_type))) == 0:
                     raise AirflowException(f"operator can't consume any of {upstream_output_type}"
                                            f"from upstream operator {upstream_task} with input type {self.input_type}")
 

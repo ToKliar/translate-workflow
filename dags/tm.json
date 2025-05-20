@@ -1,0 +1,22 @@
+[
+  {
+    "src": "If a node process crashed (or was killed by an administrator) but the node’s operating system is still running, a script can notify other nodes about the crash so that another node can take over quickly without having to wait for a timeout to expire. ",
+    "translation": "如果节点进程崩溃（或被管理员杀死），但节点的操作系统仍在运行，则脚本可以通知其他节点有关该崩溃的信息，以便另一个节点可以快速接管，而无需等待超时到期"
+  },
+  {
+    "src": "This option is ruled out if you’re connecting via the internet, or if you’re in a shared datacenter with no access to the switches themselves, or if you can’t reach the management interface due to a net‐work problem.",
+    "translation": "如果你通过互联网连接，或者如果你处于共享数据中心而无法访问交换机，或者由于网络问题而无法访问管理界面，则排除此选项"
+  },
+  {
+    "src": "A short timeout detects faults faster, but carries a higher risk of incorrectly declaring a node dead when in fact it has only suffered a temporary slowdown (e.g., due to a load spike on the node or the network)",
+    "translation": "短的超时可以更快地检测到故障，但有更高地风险误将一个节点宣布为失效，而该节点实际上只是暂时地变慢了（例如由于节点或网络上的负载峰值）"
+  },
+  {
+    "src": "Unfortunately, most systems we work with have neither of those guarantees: asynchronous networks have unbounded delays (that is, they try to deliver packets as quickly as possible, but there is no upper limit on the time it may take for a packet to arrive), and most server implementations cannot guarantee that they can handle requests within some maximum time (see “Response time guarantees” on page 298).",
+    "translation": "不幸的是，我们所使用的大多数系统都没有这些保证：异步网络具有无限的延迟（即尽可能快地传送数据包，但数据包到达可能需要的时间没有上限），并且大多数服务器实现并不能保证它们可以在一定的最大时间内处理请求（请参阅 “响应时间保证”）"
+  },
+  {
+    "src": "The problem with clocks is that while they seem simple and easy to use, they have a surprising number of pitfalls: a day may not have exactly 86,400 seconds, time-of-day clocks may move backward in time, and the time on one node may be quite different from the time on another node.",
+    "translation": "时钟的问题在于，虽然它们看起来简单易用，但却具有令人惊讶的缺陷：一天可能不会有精确的 86,400 秒，日历时钟可能会前后跳跃，而一个节点上的时间可能与另一个节点上的时间完全不同。"
+  }
+]

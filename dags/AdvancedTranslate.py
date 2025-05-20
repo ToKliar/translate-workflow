@@ -1,13 +1,18 @@
 from airflow import DAG
 from datetime import datetime, timedelta
 
-from operators.choose import ChooseOperator
+from data.relational_data import ParagraphHandler, TranslationSegmentHandler, WordHandler, \
+    TranslationMemoryHandler, MatchHandler
+from data.slot import DataSlot
+from operators.back_translation import BackTranslationOperator
+from operators.extract import ExtractOperator
 from operators.input import InputOperator
 from operators.output import OutputOperator
-from operators.proof import ProofOperator
-from operators.segment import SegmentOperator
-from operators.split import SplitOperator
-from operators.translate import LLMTranslateOperator, MachineTranslateOperator
+from operators.retrieve import RetrieveOperator
+from operators.segment import SegmentOperator, SegmentConfig
+from operators.translate import TranslateOperator
+from operators.word_translate import WordTranslateOperator
+from operators.introduce import IntroduceOperator
 
 default_args = {
     'owner': 'mayixiao',
@@ -28,33 +33,33 @@ def split_tu(sentences: list[str]) -> list[list[int]]:
   return [list(range(len(sentences)))]
 
 
-dag = DAG('advanced_translate', default_args=default_args, schedule_interval='@once')
+dag_id = "advanced_translate"
 
-t1 = InputOperator(task_id = "1", file_path="/opt/airflow/dags/story.txt", text_name="story", dag=dag)
-t2 = SegmentOperator(task_id = "2", dag=dag, seg_paragraph=seg_paragraph)
-t3 = SplitOperator(task_id="3", dag=dag, split=split_tu)
+def generate_slot(type_name: str) -> DataSlot:
+    return DataSlot(slot_id=f"{dag_id}", type_name=type_name)
 
+dag = DAG(dag_id, default_args=default_args, schedule_interval='@once')
 
-t4 = MachineTranslateOperator(task_id = "4", src_lang='en', tgt_lang='zh-CHS', dag=dag)
-t5 = LLMTranslateOperator(task_id = "5", src_lang='en', tgt_lang='zh-CHS', dag=dag)
-t6 = LLMTranslateOperator(task_id = "6", src_lang='en', tgt_lang='zh-CHS', dag=dag)
-t7 = ProofOperator(task_id = "7", dag=dag)
-
-t8 = OutputOperator(task_id = "8", dag=dag, file_path="/opt/airflow/dags/story_proof.txt")
-
-t9 = ChooseOperator(task_id = "9", dag=dag)
-t10 = OutputOperator(task_id = "10", dag=dag, file_path="/opt/airflow/dags/story_choose.txt")
-
-t1.set_downstream(t2)
-t2.set_downstream(t3)
-t3.set_downstream([t4, t5, t6])
-t6.set_downstream(t7)
-t7.set_downstream(t8)
-
-t7.set_downstream(t9)
-t4.set_downstream(t9)
-t5.set_downstream(t9)
-t9.set_downstream(t10)
+pargraph_slot = generate_slot(ParagraphHandler.type_name)
+segment_slot = generate_slot(TranslationSegmentHandler.type_name)
+word_slot = generate_slot(WordHandler.type_name)
+translation_memory_slot = generate_slot(TranslationMemoryHandler.type_name)
+match_slot = generate_slot(MatchHandler.type_name)
 
 
+file_names = [f"/opt/airflow/dags/data/financial.txt"]
 
+text_name = "financial"
+
+t1 = InputOperator(task_id = "1", file_paths=file_names, text_name=text_name, dag=dag, output_slot=pargraph_slot)
+t2 = SegmentOperator(task_id = "2", dag=dag, input_slots=[pargraph_slot], output_slot=segment_slot)
+t3 = ExtractOperator(task_id = "3", dag=dag, title="term", input_slots=[segment_slot], output_slot=word_slot)
+t4 = WordTranslateOperator(task_id = "4", dag=dag, input_slots=[word_slot], output_slot=word_slot)
+t5 = IntroduceOperator(task_id = "5", dag=dag, file_paths=["/opt/airflow/dags/tm.json"], title="translation memory", output_slot=translation_memory_slot)
+t6 = RetrieveOperator(task_id = "6", dag=dag, input_slots=[word_slot, segment_slot, translation_memory_slot], output_slot=match_slot)
+t7 = TranslateOperator(task_id = "7", dag=dag, input_slots=[segment_slot, match_slot], output_slot=segment_slot)
+t9 = BackTranslationOperator(task_id = "8", dag=dag, input_slots=[segment_slot], output_slot=segment_slot)
+t8 = OutputOperator(task_id = "9", dag=dag, file_path="/opt/airflow/dags/financial_advanced.txt", input_slots=[segment_slot])
+
+t1 >> t2 >> t3 >> t4 >> t6 >> t7 >> t9 >> t8
+t5 >> t6

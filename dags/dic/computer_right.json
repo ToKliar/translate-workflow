@@ -1,0 +1,185 @@
+{
+    "faults": [
+        "故障"
+    ],
+    "partial failures": [
+        "部分失败"
+    ],
+    "deterministic": [
+        "确定性"
+    ],
+    "loose connector": [
+        "连接器松动"
+    ],
+    "memory corruption": [
+        "内存损坏"
+    ],
+    "kernel panic": [
+        "内核恐慌"
+    ],
+    "blue screen of death": [
+        "蓝屏死机"
+    ],
+    "cpu instruction": [
+        "CPU 指令"
+    ],
+    "distributed systems": [
+        "分布式系统"
+    ],
+    "network": [
+        "网络"
+    ],
+    "nondeterminism": [
+        "非确定性"
+    ],
+    "cloud computing": [
+        "云计算"
+    ],
+    "supercomputing": [
+        "超级计算机"
+    ],
+    "high-performance computing": [
+        "高性能计算"
+    ],
+    "checkpointing": [
+        "检查点机制"
+    ],
+    "commodity computer": [
+        "商用计算机"
+    ],
+    "multi-tenant datacenters": [
+        "多租户数据中心"
+    ],
+    "elastic resource allocation": [
+        "弹性资源分配"
+    ],
+    "on-demand resource allocation": [
+        "按需资源分配"
+    ],
+    "metered billing": [
+        "计量计费"
+    ],
+    "latency": [
+        "延迟"
+    ],
+    "batch jobs": [
+        "批处理作业"
+    ],
+    "remote direct memory access": [
+        "远程直接内存访问"
+    ],
+    "online": [
+        "在线"
+    ],
+    "offline": [
+        "离线"
+    ],
+    "clos topologies": [
+        "CLOS 拓扑"
+    ],
+    "bisection": [
+        "对分"
+    ],
+    "bandwidth": [
+        "带宽"
+    ],
+    "multi-dimensional meshes": [
+        "多维网格"
+    ],
+    "toruses": [
+        "Torus 网络"
+    ],
+    "rolling upgrade": [
+        "滚动升级"
+    ],
+    "virtual machine": [
+        "虚拟机"
+    ],
+    "geographically distributed deployment": [
+        "地理位置分散的部署"
+    ],
+    "supercomputer": [
+        "超级计算机"
+    ],
+    "fault-tolerance": [
+        "容错"
+    ],
+    "reliability": [
+        "可靠性"
+    ],
+    "error-correcting codes": [
+        "纠错码"
+    ],
+    "internet protocol": [
+        "互联网协议"
+    ],
+    "transmission control protocol": [
+        "传输控制协议"
+    ],
+    "IP": [
+        "互联网协议"
+    ],
+    "TCP": [
+        "传输控制协议"
+    ],
+    "packet": [
+        "数据包"
+    ],
+    "end-to-end": [
+        "端到端"
+    ],
+    "Ethernet": [
+        "以太网"
+    ],
+    "shared-nothing systems": [
+        "无共享系统"
+    ],
+    "asynchronous packet networks": [
+        "异步分组网络"
+    ],
+    "garbage collection": [
+        "垃圾回收"
+    ],
+    "network switch": [
+        "网络交换机"
+    ],
+    "timeout": [
+        "超时"
+    ],
+    "rick": [
+        "机架"
+    ],
+    "top-of-rack switch": [
+        "架顶式交换机"
+    ],
+    "aggregation switch": [
+        "汇聚交换机"
+    ],
+    "switch": [
+        "交换机"
+    ],
+    "load balancers": [
+        "负载平衡器"
+    ],
+    "redundant networking gear": [
+        "冗余网络设备"
+    ],
+    "misconfigured switch": [
+        "错误配置的交换机"
+    ],
+    "transient network glitch": [
+        "暂态网络故障"
+    ],
+    "private datacenter network": [
+        "私有数据中心网络"
+    ],
+    "network topology reconfiguration": [
+        "网络拓扑重构"
+    ],
+    "undersea cables": [
+        "海底电缆"
+    ],
+    "deadlock": [
+        "死锁"
+    ]
+}
